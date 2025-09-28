@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вопрос</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .dialog {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .yes-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .yes-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .no-btn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .result.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="dialog">
+        <div class="question">Менял приклад?</div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="showAnswer()">Да</button>
+            <button class="no-btn" onmouseover="moveButton()">Нет</button>
+        </div>
+        <div class="result" id="result">Я так и знала!</div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const noBtn = document.querySelector('.no-btn');
+            const dialog = document.querySelector('.dialog');
+            
+            // Получаем размеры контейнера и кнопки
+            const dialogRect = dialog.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Генерируем случайные координаты внутри контейнера
+            const maxX = dialogRect.width - btnRect.width - 20;
+            const maxY = dialogRect.height - btnRect.height - 20;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            // Устанавливаем новые координаты
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function showAnswer() {
+            const result = document.getElementById('result');
+            result.classList.add('show');
+            
+            // Прячем кнопки после ответа
+            const buttons = document.querySelector('.buttons');
+            buttons.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
